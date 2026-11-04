@@ -2,7 +2,7 @@
 
 This app demonstrates using the [`gargoyle`
 package](https://github.com/ColinFay/gargoyle) to communicate between modules (within in
-a package). Check out the repo for this app [here](https://github.com/mjfrigaard/msst2ap).
+a package). Check out the repo for this app [here](https://github.com/mjfrigaard/modsquad).
 
 ### Modules
 
@@ -20,10 +20,10 @@ You can install the development version of `gargap` from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("mjfrigaard/msst2ap")
+devtools::install_github("mjfrigaard/modsquad")
 ```
 
 ### Deployed Example
 
 View a deployed version of the application
-[here](https://mjfrigaard.shinyapps.io/garmsst2ap/):
+[here](https://mjfrigaard.shinyapps.io/garmodsquad/):

@@ -18,7 +18,7 @@
 #' @importFrom shiny reactiveValuesToList renderPrint verbatimTextOutput
 datasetApp <- function(filter = NULL) {
   ui <- shiny::fluidPage(
-    datasetInput("dataset", filter = is.data.frame),
+    datasetInput("dataset", filter = filter),
     shiny::tableOutput("data"),
     shiny::verbatimTextOutput("vals")
   )

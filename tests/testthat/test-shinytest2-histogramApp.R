@@ -1,6 +1,6 @@
 test_that("{shinytest2}: histogramApp", {
   app <- AppDriver$new(system.file("dev", "histogramApp",
-                                  package = "msst2ap"),
+                                  package = "modsquad"),
                        height = 750,
                        width = 1200)
   app$set_inputs(`data-dataset` = "attitude")

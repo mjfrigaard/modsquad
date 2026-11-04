@@ -1,31 +1,35 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Mastering Shiny Shiny Test 2 App Package (`msst2ap`)
+# modsquad
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-The goal of `msst2ap` is to demonstrate how to test a shiny app-package
-using [`testthat`](https://testthat.r-lib.org/) and
-[`shinytest2`](https://rstudio.github.io/shinytest2/)
+The goal of `modsquad` is to demonstrate how to test the modules in a
+Shiny app-package using [`testthat`](https://testthat.r-lib.org/),
+[`shiny::testServer()`](https://shiny.posit.co/r/reference/shiny/latest/testserver.html),
+and [`shinytest2`](https://rstudio.github.io/shinytest2/).
+
+`modsquad` combines two earlier app-packages: `mstsap` (`testServer()`
+tests) and `msst2ap` (`shinytest2` tests).
 
 All examples come from the [Modules chapter of Mastering
 Shiny.](https://mastering-shiny.org/scaling-modules.html)
 
 ## Installation
 
-You can install `msst2ap` from GitHub using the code below:
+You can install `modsquad` from GitHub using the code below:
 
 ``` r
-remotes::install_github("mjfrigaard/msst2ap",
+remotes::install_github("mjfrigaard/modsquad",
   force = TRUE, quiet = TRUE
 )
 ```
 
 ``` r
-library(msst2ap)
+library(modsquad)
 #> Loading required package: shiny
 ```
 
@@ -33,15 +37,16 @@ library(msst2ap)
 
 There are specific instructions for setting up `shinytest2` in the
 [`shinytest2-setup.Rmd`
-vignette](https://github.com/mjfrigaard/msst2ap/blob/main/vignettes/shinytest2-setup.Rmd).
+vignette](https://github.com/mjfrigaard/modsquad/blob/main/vignettes/shinytest2-setup.Rmd).
 
 ## Utility function/`testServer()` tests
 
-Tests for the utility functions are in [`unit-tests.Rmd`
-vignette](https://github.com/mjfrigaard/msst2ap/blob/main/vignettes/unit-tests.Rmd).
-Test for the module server functions and standalone app functions are in
-the [`testserver-tests.Rmd`
-vignette](https://github.com/mjfrigaard/msst2ap/blob/main/vignettes/testserver-tests.Rmd).
+Tests for the utility functions are in `tests/testthat/test-find_vars.R`
+and the [`unit-tests.Rmd`
+vignette](https://github.com/mjfrigaard/modsquad/blob/main/vignettes/unit-tests.Rmd).
+Tests for the module server functions and standalone app functions are
+in `tests/testthat/` and the [`testserver-tests.Rmd`
+vignette](https://github.com/mjfrigaard/modsquad/blob/main/vignettes/testserver-tests.Rmd).
 
 ## `shinytest2` tests
 
@@ -50,7 +55,7 @@ The output from `devtools::test()` is below:
 ``` default
 ==> devtools::test()
 
-ℹ Testing msst2ap
+ℹ Testing modsquad
 ✔ | F W  S  OK | Context
 ✔ |          1 | shinytest2-datasetApp [4.8s]                                                   
 ⠼ |          5 | shinytest2-gghistApp       

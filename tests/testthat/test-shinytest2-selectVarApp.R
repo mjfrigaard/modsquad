@@ -4,7 +4,7 @@ library(chromote)
 
 testthat::test_that("{shinytest2}: selectVarApp", {
   app <- AppDriver$new(app_dir = system.file("dev", "selectVarApp",
-                                             package = "msst2ap"),
+                                             package = "modsquad"),
                        height = 1200, width = 1000)
 
   app$set_inputs(`data-dataset` = "mtcars")

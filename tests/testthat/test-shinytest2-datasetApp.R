@@ -4,7 +4,7 @@ library(chromote)
 
 test_that("{shinytest2}: datasetApp", {
   app <- AppDriver$new(app_dir = system.file("dev", "datasetApp",
-                                             package = "msst2ap"),
+                                             package = "modsquad"),
                        height = 600,
                        width = 800)
   app$set_inputs(`dataset-dataset` = "attitude")

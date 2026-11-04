@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 #| label: pkgs
 #| message: false
 #| warning: false
-library(msst2ap)
+library(modsquad)
 library(lobstr)
 library(fs)
 ```
@@ -33,7 +33,7 @@ library(fs)
 ## Mastering Shiny Apps
 
 
-This vignette walks through the structure of each application using the abstract syntax tree (`ast()`) function from the [`lobstr` package](https://lobstr.r-lib.org/). Three of the applications in the `msst2ap` package come from the [Modules section of Mastering Shiny](https://mastering-shiny.org/scaling-modules.html), with a few adjustments: 
+This vignette walks through the structure of each application using the abstract syntax tree (`ast()`) function from the [`lobstr` package](https://lobstr.r-lib.org/). Three of the applications in the `modsquad` package come from the [Modules section of Mastering Shiny](https://mastering-shiny.org/scaling-modules.html), with a few adjustments: 
 
 -   Each standalone app function has a `verbatimTextOutput()` in the `ui`: 
 

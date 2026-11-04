@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 #| label: packages 
 #| warning: false 
 #| message: false 
-library(msst2ap)
+library(modsquad)
 library(shinytest2)
 ```
 

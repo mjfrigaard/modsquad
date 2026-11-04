@@ -1,14 +1,14 @@
 Type: Package
-Package: msst2ap
-Title: Mastering Shiny Shiny Test 2 App Package
+Package: modsquad
+Title: Testing Mastering Shiny Modules with testServer() and shinytest2
 Version: 0.1.0
 Author: Martin Frigaard
 Maintainer: Martin Frigaard <mjfrigaard@pm.me>
-Description: This Shiny app-package demonstrates testing with testthat and
-    shinytest2 using the examples from from Mastering Shiny
-    (mastering-shiny.org).
+Description: This Shiny app-package demonstrates testing modules with
+    testthat, shiny::testServer(), and shinytest2 using the examples from
+    Mastering Shiny (mastering-shiny.org).
 License: MIT + file LICENSE
-URL: https://mjfrigaard.github.io/msst2ap/
+URL: https://mjfrigaard.github.io/modsquad/
 Depends: 
     R (>= 3.5),
     shiny
@@ -36,4 +36,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1

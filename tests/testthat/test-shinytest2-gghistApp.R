@@ -10,7 +10,7 @@ test_that("{shinytest2}: gghistApp", {
   skip_if_not_installed("vdiffr")
 
   app <- AppDriver$new(app_dir = system.file("dev", "gghistApp",
-                                             package = "msst2ap"),
+                                             package = "modsquad"),
                        height = 750, width = 1200)
 
   # Verify initial data

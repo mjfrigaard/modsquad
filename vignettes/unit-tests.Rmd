@@ -25,14 +25,14 @@ knitr::opts_chunk$set(
 #| label: pkgs
 #| message: false
 #| warning: false
-library(msst2ap)
+library(modsquad)
 library(testthat)
 
 ```
 
 ## Unit tests
 
-The unit tests have been removed from `msst2ap` to focus on the `shinytest2` tests, but I've stored each each of them in this vignette for completeness. 
+The unit tests for the utility functions are in `tests/testthat/test-find_vars.R`. Each test is also shown in this vignette with its output.
 
 ```{r}
 #| label: test_cmt 

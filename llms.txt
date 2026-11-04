@@ -1,0 +1,186 @@
+# modsquad
+
+The goal of `modsquad` is to demonstrate how to test the modules in a
+Shiny app-package using [`testthat`](https://testthat.r-lib.org/),
+[`shiny::testServer()`](https://shiny.posit.co/r/reference/shiny/latest/testserver.html),
+and [`shinytest2`](https://rstudio.github.io/shinytest2/).
+
+`modsquad` combines two earlier app-packages: `mstsap`
+([`testServer()`](https://rdrr.io/pkg/shiny/man/testServer.html) tests)
+and `msst2ap` (`shinytest2` tests).
+
+All examples come from the [Modules chapter of Mastering
+Shiny.](https://mastering-shiny.org/scaling-modules.html)
+
+## Installation
+
+You can install `modsquad` from GitHub using the code below:
+
+``` r
+
+remotes::install_github("mjfrigaard/modsquad",
+  force = TRUE, quiet = TRUE
+)
+```
+
+``` r
+
+library(modsquad)
+#> Loading required package: shiny
+```
+
+## Set up
+
+There are specific instructions for setting up `shinytest2` in the
+[`shinytest2-setup.Rmd`
+vignette](https://github.com/mjfrigaard/modsquad/blob/main/vignettes/shinytest2-setup.Rmd).
+
+## Utility function/`testServer()` tests
+
+Tests for the utility functions are in `tests/testthat/test-find_vars.R`
+and the [`unit-tests.Rmd`
+vignette](https://github.com/mjfrigaard/modsquad/blob/main/vignettes/unit-tests.Rmd).
+Tests for the module server functions and standalone app functions are
+in `tests/testthat/` and the [`testserver-tests.Rmd`
+vignette](https://github.com/mjfrigaard/modsquad/blob/main/vignettes/testserver-tests.Rmd).
+
+## `shinytest2` tests
+
+The output from `devtools::test()` is below:
+
+``` default
+==> devtools::test()
+
+ℹ Testing modsquad
+✔ | F W  S  OK | Context
+✔ |          1 | shinytest2-datasetApp [4.8s]                                                   
+⠼ |          5 | shinytest2-gghistApp       
+⠋ |         11 | shinytest2-gghistApp                                   
+⠙ |         12 | shinytest2-gghistApp                       
+✔ |         13 | shinytest2-gghistApp [5.1s]                                
+✔ |          5 | shinytest2-histogramApp [3.6s]                                                 
+✔ |          2 | shinytest2-selectVarApp [2.2s]                                                 
+✔ |          1 | shinytest2 [4.2s]                                                              
+
+══ Results ══════════════════════════════════════════════════════════════════
+Duration: 19.9 s
+
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 22 ]
+
+🔥 Your tests are lit 🔥
+```
+
+### Known issue
+
+The following warning is given when running `shinytest2` tests in an app
+package:
+
+``` default
+Warning message:
+In shiny::loadSupport(app_dir, renv = renv, globalrenv = globalrenv) :
+  Loading R/ subdirectory for Shiny application, but this directory appears to 
+contain an R package. Sourcing files in R/ may cause unexpected behavior.
+```
+
+Don’t worry–there is an [open issue on
+GitHub](https://github.com/rstudio/shinytest2/issues/264) for this!
+
+# Package index
+
+## Mastering Shiny Modules: dataset
+
+Functions for dataset module
+
+- [`datasetInput()`](https://mjfrigaard.github.io/modsquad/reference/datasetInput.md)
+  : Data input module
+- [`datasetServer()`](https://mjfrigaard.github.io/modsquad/reference/datasetServer.md)
+  : Data server module
+
+## Mastering Shiny Modules: datasetApp
+
+Functions for dataset app
+
+- [`datasetApp()`](https://mjfrigaard.github.io/modsquad/reference/datasetApp.md)
+  : Dataset app
+
+## Mastering Shiny Modules: selectVar
+
+Functions for selectVar module
+
+- [`selectVarInput()`](https://mjfrigaard.github.io/modsquad/reference/selectVarInput.md)
+  : Variable input UI module
+- [`selectVarServer()`](https://mjfrigaard.github.io/modsquad/reference/selectVarServer.md)
+  : Variable input server module
+
+## Mastering Shiny Modules: selectVarApp
+
+Functions for selectVarApp
+
+- [`selectVarApp()`](https://mjfrigaard.github.io/modsquad/reference/selectVarApp.md)
+  : Select Variable App
+
+## Mastering Shiny Modules: selectDataVar
+
+Functions for selectVar module
+
+- [`selectDataVarUI()`](https://mjfrigaard.github.io/modsquad/reference/selectDataVarUI.md)
+  : Data and variable input UI module
+- [`selectDataVarServer()`](https://mjfrigaard.github.io/modsquad/reference/selectDataVarServer.md)
+  : Data and variable input server module
+- [`DataVarUI()`](https://mjfrigaard.github.io/modsquad/reference/DataVarUI.md)
+  : Data and variable shiny UI (version 2)
+- [`DataVarServer()`](https://mjfrigaard.github.io/modsquad/reference/DataVarServer.md)
+  : Data and variable shiny server (version 2)
+
+## Mastering Shiny Modules: selectDataVarApp
+
+Functions for selectDataVarApp
+
+- [`selectDataVarApp()`](https://mjfrigaard.github.io/modsquad/reference/selectDataVarApp.md)
+  : Data and variable shiny app
+- [`selectDataVarApp2()`](https://mjfrigaard.github.io/modsquad/reference/selectDataVarApp2.md)
+  : Data and variable shiny app (version 2)
+
+## Mastering Shiny Modules: histogram
+
+Functions for histogram module
+
+- [`histogramOutput()`](https://mjfrigaard.github.io/modsquad/reference/histogramOutput.md)
+  : Histogram UI module
+- [`histogramServer()`](https://mjfrigaard.github.io/modsquad/reference/histogramServer.md)
+  : Histogram server module
+
+## Mastering Shiny Modules: histogramApp
+
+Functions for histogramApp
+
+- [`histogramApp()`](https://mjfrigaard.github.io/modsquad/reference/histogramApp.md)
+  : Histogram App
+
+## Utilities
+
+Helper functions
+
+- [`find_vars()`](https://mjfrigaard.github.io/modsquad/reference/find_vars.md)
+  : Find variables
+
+- [`` `%nin%` ``](https://mjfrigaard.github.io/modsquad/reference/not-in.md)
+  :
+
+  Inverted versions of `%in%`
+
+- [`test_cmt()`](https://mjfrigaard.github.io/modsquad/reference/test_cmt.md)
+  : Test comment helper
+
+# Articles
+
+### All vignettes
+
+- [Mastering Shiny: Shiny modules
+  (apps)](https://mjfrigaard.github.io/modsquad/articles/apps.md):
+- [shinytest2
+  setup](https://mjfrigaard.github.io/modsquad/articles/shinytest2-setup.md):
+- [testServer
+  tests](https://mjfrigaard.github.io/modsquad/articles/testserver-tests.md):
+- [Unit
+  tests](https://mjfrigaard.github.io/modsquad/articles/unit-tests.md):

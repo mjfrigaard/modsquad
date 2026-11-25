@@ -33,7 +33,7 @@ library(fs)
 ## Mastering Shiny Apps
 
 
-This vignette walks through the structure of each application using the abstract syntax tree (`ast()`) function from the [`lobstr` package](https://lobstr.r-lib.org/). Three of the applications in the `modsquad` package come from the [Modules section of Mastering Shiny](https://mastering-shiny.org/scaling-modules.html), with a few adjustments: 
+This vignette walks through the structure of each application using call trees from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/) and the abstract syntax tree (`ast()`) function from the [`lobstr` package](https://lobstr.r-lib.org/). Three of the applications in the `modsquad` package come from the [Modules section of Mastering Shiny](https://mastering-shiny.org/scaling-modules.html), with a few adjustments: 
 
 -   Each standalone app function has a `verbatimTextOutput()` in the `ui`: 
 
@@ -61,23 +61,14 @@ Printing the output from `shiny::reactiveValuesToList()` in the top-level of the
 
 ### `datasetApp()`
     
-```{verbatim}
-#| eval: false 
-#| echo: true
-█─datasetApp 
-├─filter = NULL 
-└─█─shinyApp 
-  ├─ui = █─fluidPage 
-  │      ├─█─datasetInput 
-  │      │ ├─id = "dataset" 
-  │      │ ├─filter = is.data.frame 
-  │      │ └─█─selectInput 
-  │      │   └─inputId = "dataset" 
-  │      └─█─tableOutput 
-  │        └─"data"
-  └─server = █─function(input, output, session)
-             └─█─data <- datasetServer(id = "dataset") 
-               └─output$data <- renderTable(head(data()))
+The tree below comes from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/). `call_tree_dir()` parses the files in `R/` without running them.
+
+```{r}
+#| label: call-stack-datasetApp
+#| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
+#| collapse: false
+#| comment: ""
+stackcallr::call_tree_dir("../R", root = "datasetApp")
 ```
 
 **`datasetApp()` contains the `datasetInput()` and `datasetServer()` module functions**
@@ -97,59 +88,18 @@ $`dataset-dataset`
 
 The first `dataset` is from the module `id`, and the second is from the `inputId` (in the `selectInput()`).
 
-<!--
-    
-```{r}
-#| echo: false 
-#| eval: false
-#| comment: ""
-#| include: true
-lobstr::ast(
-  datasetApp(filter = NULL,
-    shinyApp(
-      ui = fluidPage(
-            datasetInput(id = "dataset", filter = filter,
-              selectInput(inputId = "dataset")
-              ),
-            tableOutput("data")),
-  server = function(`input, output, session`) {
-    `data <- datasetServer(id = "dataset")`
-    `output$data <- renderTable(head(data()))`
-    }
-   )
-  )
-)
-```
-
--->
     
 ### `selectVarApp()`
 
 **`selectVarApp()` contains the `datasetInput()`/`Server()` and `selectVarInput()`/`Server()` modules**
 
 
-```{verbatim}
-#| eval: false 
-#| echo: true
-█─selectVarApp 
-└─█─shinyApp 
-  ├─ui = █─fluidPage 
-  │      ├─█─datasetInput 
-  │      │ ├─id = "data" 
-  │      │ ├─filter = is.data.frame
-  │      │ └─█─selectInput 
-  │      │   └─inputId = "dataset" 
-  │      ├─█─selectVarInput 
-  │      │ ├─id = "var" 
-  │      │ └─█─selectInput 
-  │      │   └─inputId = "var" 
-  │      └─█─tableOutput 
-  │        └─"out" 
-  └─server = █─function(input, output, session)
-             └─█─data <- datasetServer("data")
-               █─var <- selectVarServer("var", data, filter = is.numeric)
-               └─output$out <- renderTable(head(var()))
-             
+```{r}
+#| label: call-stack-selectVarApp
+#| eval: !expr requireNamespace("stackcallr", quietly = TRUE)
+#| collapse: false
+#| comment: ""
+stackcallr::call_tree_dir("../R", root = "selectVarApp")
 ```
 
 - **`dataset` module:**
@@ -237,43 +187,11 @@ $`data-dataset`
 
 - `"data"` is from the shared `id` between `datasetInput()`/`datasetServer()`, and the second is from the `selectInput()`.
 
-<!--
-
-```{r}
-#| echo: false 
-#| eval: false
-#| comment: ""
-#| include: true
-lobstr::ast(
-  selectVarApp(
-    shinyApp(
-      ui = fluidPage(
-
-      datasetInput(id = "data", filter = is.data.frame),
-
-      selectVarInput(id = "var"),
-
-      verbatimTextOutput("out")
-        
-  ), 
-      server = function(`input, output, session`) {
-        
-        `data <- datasetServer("data")`
-        
-        `var <- selectVarServer("var", data, filter = filter)`
-
-        `output$out <- renderPrint(head(var()))`
-        
-        }
-      )
-    )
-  )
-```
-
--->
 
 ### `selectDataVarApp()`
       
+
+This tree is drawn by hand because it shows how the modules nest inside `sidebarLayout()`, `sidebarPanel()`, and `mainPanel()`, which `call_tree_dir()` does not show by default.
 
 ```{verbatim}
 #| eval: false 
@@ -372,6 +290,8 @@ selectDataVarApp(
 
 ### `histogramApp()`
 
+
+This tree is also drawn by hand to show the `sidebarLayout()` nesting in the UI.
 
 ```{verbatim}
 #| eval: false 

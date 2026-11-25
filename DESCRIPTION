@@ -28,8 +28,11 @@ Suggests:
     knitr,
     remotes,
     rmarkdown,
+    stackcallr,
     testthat,
     vdiffr
+Remotes: 
+    mjfrigaard/stackcallr
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

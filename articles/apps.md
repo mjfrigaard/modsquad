@@ -9,8 +9,9 @@ library(fs)
 
 ## Mastering Shiny Apps
 
-This vignette walks through the structure of each application using the
-abstract syntax tree
+This vignette walks through the structure of each application using call
+trees from [`stackcallr`](https://mjfrigaard.github.io/stackcallr/) and
+the abstract syntax tree
 ([`ast()`](https://lobstr.r-lib.org/reference/ast.html)) function from
 the [`lobstr` package](https://lobstr.r-lib.org/). Three of the
 applications in the `modsquad` package come from the [Modules section of
@@ -46,22 +47,18 @@ modules throughout the application.
 
 ### `datasetApp()`
 
-``` default
-█─datasetApp 
-├─filter = NULL 
-└─█─shinyApp 
-  ├─ui = █─fluidPage 
-  │      ├─█─datasetInput 
-  │      │ ├─id = "dataset" 
-  │      │ ├─filter = is.data.frame 
-  │      │ └─█─selectInput 
-  │      │   └─inputId = "dataset" 
-  │      └─█─tableOutput 
-  │        └─"data"
-  └─server = █─function(input, output, session)
-             └─█─data <- datasetServer(id = "dataset") 
-               └─output$data <- renderTable(head(data()))
+The tree below comes from
+[`stackcallr`](https://mjfrigaard.github.io/stackcallr/).
+`call_tree_dir()` parses the files in `R/` without running them.
+
+``` r
+
+stackcallr::call_tree_dir("../R", root = "datasetApp")
 ```
+
+    █─datasetApp
+    ├─datasetInput
+    └─datasetServer
 
 **[`datasetApp()`](https://mjfrigaard.github.io/modsquad/reference/datasetApp.md)
 contains the
@@ -103,27 +100,17 @@ and
 [`selectVarInput()`](https://mjfrigaard.github.io/modsquad/reference/selectVarInput.md)/`Server()`
 modules**
 
-``` default
-█─selectVarApp 
-└─█─shinyApp 
-  ├─ui = █─fluidPage 
-  │      ├─█─datasetInput 
-  │      │ ├─id = "data" 
-  │      │ ├─filter = is.data.frame
-  │      │ └─█─selectInput 
-  │      │   └─inputId = "dataset" 
-  │      ├─█─selectVarInput 
-  │      │ ├─id = "var" 
-  │      │ └─█─selectInput 
-  │      │   └─inputId = "var" 
-  │      └─█─tableOutput 
-  │        └─"out" 
-  └─server = █─function(input, output, session)
-             └─█─data <- datasetServer("data")
-               █─var <- selectVarServer("var", data, filter = is.numeric)
-               └─output$out <- renderTable(head(var()))
-             
+``` r
+
+stackcallr::call_tree_dir("../R", root = "selectVarApp")
 ```
+
+    █─selectVarApp
+    ├─datasetInput
+    ├─selectVarInput
+    ├─datasetServer
+    └─█─selectVarServer
+      └─find_vars
 
 **`dataset` module:**
 
@@ -230,6 +217,12 @@ output for both modules are below:
 
 ### `selectDataVarApp()`
 
+This tree is drawn by hand because it shows how the modules nest inside
+[`sidebarLayout()`](https://rdrr.io/pkg/shiny/man/sidebarLayout.html),
+[`sidebarPanel()`](https://rdrr.io/pkg/shiny/man/sidebarLayout.html),
+and [`mainPanel()`](https://rdrr.io/pkg/shiny/man/sidebarLayout.html),
+which `call_tree_dir()` does not show by default.
+
 ``` default
 █─selectDataVarApp 
 └─█─shinyApp 
@@ -323,6 +316,10 @@ with **two** appended namespaces:
     [1] "airquality"
 
 ### `histogramApp()`
+
+This tree is also drawn by hand to show the
+[`sidebarLayout()`](https://rdrr.io/pkg/shiny/man/sidebarLayout.html)
+nesting in the UI.
 
 ``` default
 █─histogramApp 
